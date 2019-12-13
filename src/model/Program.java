@@ -1,6 +1,6 @@
 package model;
 
-import control.Attendance;
+import controller.Attendance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import java.util.List;
 public class Program {
     private String name;
     private List<Seminar> seminars;
+    private ProgramCoordinator programCoordinator;
 
     public Program(String name) {
         this.name = name;
@@ -41,4 +42,11 @@ public class Program {
         return name;
     }
 
+    public ProgramCoordinator getProgramCoordinator() {
+        return programCoordinator;
+    }
+
+    public void setProgramCoordinator(ProgramCoordinator programCoordinator) {
+        this.programCoordinator = programCoordinator;
+    }
 }

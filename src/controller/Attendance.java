@@ -1,6 +1,5 @@
-package control;
+package controller;
 
-import model.Program;
 import model.Seminar;
 import model.Student;
 
@@ -25,7 +24,7 @@ public class Attendance {
         student.getAttendances().remove(this);
         attendanceLevel = false;
     }
-    
+
     public Seminar getSeminar() {
         return seminar;
     }
@@ -34,4 +33,10 @@ public class Attendance {
         return student;
     }
 
+    @Override
+    public String toString() {
+        return "Attendance{" +
+                "student=" + student +
+                '}';
+    }
 }

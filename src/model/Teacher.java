@@ -1,11 +1,17 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher {
     private String name;
     private List<Seminar> seminarHistory;
     private Seminar currentSeminar;
+
+    public Teacher(String name) {
+        this.name = name;
+        seminarHistory = new ArrayList<>();
+    }
 
     public void setName(String name) {
         this.name = name;

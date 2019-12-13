@@ -1,6 +1,6 @@
 package model;
 
-import control.Attendance;
+import controller.Attendance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,13 @@ public class Seminar {
     private Program program;
 
     public Seminar() {
+        subjects = new ArrayList<>();
+        attendances = new ArrayList<>();
+    }
+
+    public Seminar(String name,Program program) {
+        this.name = name;
+        this.program = program;
         subjects = new ArrayList<>();
         attendances = new ArrayList<>();
     }
@@ -60,5 +67,34 @@ public class Seminar {
 
     public void addSubject(Subject subject) {
         subjects.add(subject);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    public void setAttendances(List<Attendance> attendances) {
+        this.attendances = attendances;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
+    }
+
+    @Override
+    public String toString() {
+        return "Seminar info: " +
+                "title: " + name + " , " +
+                "teacher: " + teacher +
+                " , attendances: " + attendances +
+                " , program: " + program + " .";
     }
 }

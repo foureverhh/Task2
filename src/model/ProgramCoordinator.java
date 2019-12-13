@@ -9,6 +9,11 @@ public class ProgramCoordinator {
     private Program program;
     private List<Teacher> teachers;
 
+    public ProgramCoordinator(String name,Program program) {
+        this.name = name;
+        this.program = program;
+    }
+
     public void addTeacher(Teacher teacher){
         teachers.add(teacher);
     }
