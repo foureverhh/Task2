@@ -6,10 +6,12 @@ import model.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Demo  {
+public class Demo {
     //gui components
     private static JFrame demo;
     private static JPanel studentInfo;
@@ -18,22 +20,20 @@ public class Demo  {
     private static JPanel buttonPanel;
     private static JPanel container;
 
-    private static JRadioButton student1;
-    private static JRadioButton student2;
-    private static JRadioButton student3;
-    private static JRadioButton student4;
-    private static ButtonGroup student_group;
+    private static JCheckBox student1;
+    private static JCheckBox student2;
+    private static JCheckBox student3;
+    private static JCheckBox student4;
 
-    private static JRadioButton seminar1;
-    private static JRadioButton seminar2;
-    private static ButtonGroup seminar_group;
+    private static JCheckBox seminar1;
+    private static JCheckBox seminar2;
 
     private static JButton check_result;
 
     private static JTextArea result;
 
     //class fields
-    private static List<Student>  students;
+    private static List<Student> students;
     private static List<Seminar> seminars;
     private static List<Teacher> teachers;
     private static List<Subject> subjects;
@@ -60,16 +60,9 @@ public class Demo  {
     private static Teacher sigrun;
 
     public static void main(String[] args) {
-        //Init all java class instances
         initData();
         guiConfig();
-
- /*       Attendance attendance1 = new Attendance();
-        attendance1.registerAttendance(objectOrientedProgramming, stu4);
-        System.out.println("Seminar attendance: " + objectOrientedProgramming);
-        System.out.println("Seminar total Attendance " + objectOrientedProgramming.getTotalAttendance());
-        System.out.println("Student SeminarAttended(): " + stu4.getSeminarsAttended());*/
-
+        //System.out.println("Students:" + students.size() + "Seminars: " + seminars.size());
     }
 
     static void guiConfig(){
@@ -88,34 +81,54 @@ public class Demo  {
         attendanceInfo = new JPanel();
         attendanceInfo.setBorder(BorderFactory.createTitledBorder("Attendance"));
 
-        //students radio buttons
-        student1 = new JRadioButton("Stu1");
-        student1.setSelected(true);
-        student2 = new JRadioButton("Stu2");
-        student3 = new JRadioButton("Stu3");
-        student4 = new JRadioButton("Stu4");
-        ButtonGroup student_group = new ButtonGroup();
-        student_group.add(student1);
-        student_group.add(student2);
-        student_group.add(student3);
-        student_group.add(student4);
+        //students check boxes
+        student1 = new JCheckBox("Stu1");
+        student2 = new JCheckBox("Stu2");
+        student3 = new JCheckBox("Stu3");
+        student4 = new JCheckBox("Stu4");
+        student1.addItemListener(l->{
+            if(l.getItemSelectable() == student1)
+                students.add(stu1);
+        });
+        student2.addItemListener(l->{
+            if(l.getItemSelectable() == student2)
+                students.add(stu2);
+        });
+        student3.addItemListener(l->{
+            if(l.getItemSelectable() == student3)
+                students.add(stu3);
+        });
+        student4.addItemListener(l->{
+            if(l.getItemSelectable() == student4)
+                students.add(stu4);
+        });
+
         studentInfo.add(student1);
         studentInfo.add(student2);
         studentInfo.add(student3);
         studentInfo.add(student4);
 
-        //seminars radio buttons
-        seminar1 = new JRadioButton("Object Oriented Programming");
-        seminar1.setSelected(true);
-        seminar2 = new JRadioButton("Object Analyze and Design");
-        seminar_group = new ButtonGroup();
-        student_group.add(student1);
-        student_group.add(student2);
+        //seminars check boxes
+        seminar1 = new JCheckBox("Object Oriented Programming");
+        seminar2 = new JCheckBox("Object Analyze and Design");
+        seminar1.addItemListener(l ->{
+            if(l.getItemSelectable() == seminar1){
+                seminars.add(objectOrientedProgramming);
+            }
+        });
+        seminar2.addItemListener(l -> {
+            if(l.getItemSelectable() == seminar2){
+                seminars.add(objectAnalyseDesign);
+            }
+        });
         seminarInfo.add(seminar1);
         seminarInfo.add(seminar2);
 
         //button
         check_result = new JButton("Check Attendance Result");
+        check_result.addActionListener(l->{
+            result.append("Students" + students.size() + "Seminars: " + seminars.size() + "\n");
+        });
         buttonPanel.add(check_result);
 
         //attendance info
@@ -158,8 +171,6 @@ public class Demo  {
         seminars = new ArrayList<>();
         objectOrientedProgramming = new Seminar("Object Oriented Programming",java19);
         objectAnalyseDesign = new Seminar("Object Analyse Design",java19);
-        seminars.add(objectAnalyseDesign);
-        seminars.add(objectOrientedProgramming);
     }
 
     static void initSubjects(){
@@ -178,16 +189,10 @@ public class Demo  {
 
     static void initStudents(){
         students = new ArrayList<>();
-
         stu4 = new Student("Stu1");
         stu1 = new Student("Stu2");
         stu2 = new Student("Stu3");
         stu3 = new Student("Stu4");
-
-        students.add(stu1);
-        students.add(stu2);
-        students.add(stu3);
-        students.add(stu4);
     }
 
     static void initTeachers(){
@@ -202,4 +207,5 @@ public class Demo  {
         teachers.add(robert);
         teachers.add(sigrun);
     }
+
 }
