@@ -1,4 +1,4 @@
-package model;
+package components;
 
 public class Subject {
     private String name;
@@ -11,7 +11,7 @@ public class Subject {
     }
 
     public String viewSubjectInfo(){
-        return "Welcome to subject " + name + " under " + seminar.getName() + "." ;
+        return  name;
     }
 
     public void setName(String name) {

@@ -1,8 +1,8 @@
-package model;
+package components;
+
+import components.Program;
 
 import java.util.List;
-import model.Program;
-import model.Teacher;
 
 public class ProgramCoordinator {
     private String name;

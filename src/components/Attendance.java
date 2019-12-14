@@ -1,7 +1,4 @@
-package controller;
-
-import model.Seminar;
-import model.Student;
+package components;
 
 public class Attendance {
     private boolean attendanceLevel;

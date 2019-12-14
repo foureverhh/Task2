@@ -1,15 +1,11 @@
-package view;
+package demo;
 
-import controller.Attendance;
-import model.*;
+import components.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Demo {
     //gui components
@@ -19,6 +15,7 @@ public class Demo {
     private static JPanel attendanceInfo;
     private static JPanel buttonPanel;
     private static JPanel container;
+    private static JScrollPane scrollPane;
 
     private static JCheckBox student1;
     private static JCheckBox student2;
@@ -37,6 +34,7 @@ public class Demo {
     private static List<Seminar> seminars;
     private static List<Teacher> teachers;
     private static List<Subject> subjects;
+    private static List<Attendance> attendances;
 
 
     private static Program java19 ;
@@ -66,7 +64,7 @@ public class Demo {
     }
 
     static void guiConfig(){
-        demo = new JFrame("Seminar Demo");
+        demo = new JFrame("Seminar");
         demo.setSize(800,800);
         demo.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         demo.setLocationRelativeTo(null);
@@ -86,6 +84,7 @@ public class Demo {
         student2 = new JCheckBox("Stu2");
         student3 = new JCheckBox("Stu3");
         student4 = new JCheckBox("Stu4");
+
         student1.addItemListener(l->{
             if(l.getItemSelectable() == student1)
                 students.add(stu1);
@@ -127,14 +126,26 @@ public class Demo {
         //button
         check_result = new JButton("Check Attendance Result");
         check_result.addActionListener(l->{
-            result.append("Students" + students.size() + "Seminars: " + seminars.size() + "\n");
+            attendances = new ArrayList<>();
+            for(Student student : students){
+                result.append("\n");
+                for(Seminar seminar : seminars){
+                    Attendance attendance = new Attendance();
+                    attendance.registerAttendance(seminar,student);
+                    result.append(student.getName() + " attended seminar " + seminar.getName() + " ,with subjects: " + seminar.getSubjects().get(0).viewSubjectInfo() +
+                            " and " + seminar.getSubjects().get(1).viewSubjectInfo() + " ,taught by teacher " + seminar.getTeacher() + "\n");
+                    attendances.add(attendance);
+                }
+            }
+            result.append("\n" + "***********************************" + "\n");
         });
         buttonPanel.add(check_result);
 
         //attendance info
-        result = new JTextArea(60,60);
+        result = new JTextArea(35,60);
         //attendanceInfo.setLayout(new BoxLayout(attendanceInfo,BoxLayout.Y_AXIS));
-        attendanceInfo.add(result);
+        scrollPane = new JScrollPane(result);
+        attendanceInfo.add(scrollPane);
 
         container.add(studentInfo);
         container.add(seminarInfo);
