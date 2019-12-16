@@ -3,6 +3,7 @@ package demo;
 import components.*;
 
 import javax.swing.*;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +31,6 @@ public class Demo {
     private static JTextArea result;
 
     //class fields
-    private static List<Student> students;
-    private static List<Seminar> seminars;
     private static List<Teacher> teachers;
     private static List<Subject> subjects;
     private static List<Attendance> attendances;
@@ -60,10 +59,11 @@ public class Demo {
     public static void main(String[] args) {
         initData();
         guiConfig();
-        //System.out.println("Students:" + students.size() + "Seminars: " + seminars.size());
     }
 
     static void guiConfig(){
+        List<Student> students = new ArrayList<>();
+        List<Seminar> seminars = new ArrayList<>();
         demo = new JFrame("Seminar");
         demo.setSize(800,800);
         demo.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -85,21 +85,43 @@ public class Demo {
         student3 = new JCheckBox("Stu3");
         student4 = new JCheckBox("Stu4");
 
-        student1.addItemListener(l->{
-            if(l.getItemSelectable() == student1)
-                students.add(stu1);
+        student1.addItemListener(su1->{
+    /*        if(su1.getItemSelectable() == student1)
+                students.add(stu1);*/
+            if(su1.getStateChange() == ItemEvent.SELECTED){
+                if(!students.contains(stu1))
+                    students.add(stu1);
+            }else {
+                if(students.contains(stu1))
+                    students.remove(stu1);
+            }
         });
-        student2.addItemListener(l->{
-            if(l.getItemSelectable() == student2)
-                students.add(stu2);
+        student2.addItemListener(su2->{
+            if(su2.getStateChange() == ItemEvent.SELECTED){
+                if(!students.contains(stu2))
+                    students.add(stu2);
+            }else {
+                if(students.contains(stu2))
+                    students.remove(stu2);
+            }
         });
-        student3.addItemListener(l->{
-            if(l.getItemSelectable() == student3)
-                students.add(stu3);
+        student3.addItemListener(su3->{
+            if(su3.getStateChange() == ItemEvent.SELECTED){
+                if(!students.contains(stu3))
+                    students.add(stu3);
+            }else {
+                if(students.contains(stu3))
+                    students.remove(stu3);
+            }
         });
-        student4.addItemListener(l->{
-            if(l.getItemSelectable() == student4)
-                students.add(stu4);
+        student4.addItemListener(su4->{
+            if(su4.getStateChange() == ItemEvent.SELECTED){
+                if(!students.contains(stu4))
+                    students.add(stu4);
+            }else {
+                if(students.contains(stu4))
+                    students.remove(stu4);
+            }
         });
 
         studentInfo.add(student1);
@@ -110,14 +132,22 @@ public class Demo {
         //seminars check boxes
         seminar1 = new JCheckBox("Object Oriented Programming");
         seminar2 = new JCheckBox("Object Analyze and Design");
-        seminar1.addItemListener(l ->{
-            if(l.getItemSelectable() == seminar1){
-                seminars.add(objectOrientedProgramming);
+        seminar1.addItemListener(se1 ->{
+            if(se1.getStateChange() == ItemEvent.SELECTED){
+                if(!seminars.contains(objectOrientedProgramming))
+                    seminars.add(objectOrientedProgramming);
+            }else {
+                if(seminars.contains(objectOrientedProgramming))
+                    seminars.remove(objectOrientedProgramming);
             }
         });
-        seminar2.addItemListener(l -> {
-            if(l.getItemSelectable() == seminar2){
-                seminars.add(objectAnalyseDesign);
+        seminar2.addItemListener(se2 -> {
+            if(se2.getStateChange() == ItemEvent.SELECTED){
+                if(!seminars.contains(objectAnalyseDesign))
+                    seminars.add(objectAnalyseDesign);
+            }else {
+                if(seminars.contains(objectAnalyseDesign))
+                    seminars.remove(objectAnalyseDesign);
             }
         });
         seminarInfo.add(seminar1);
@@ -143,7 +173,6 @@ public class Demo {
 
         //attendance info
         result = new JTextArea(35,60);
-        //attendanceInfo.setLayout(new BoxLayout(attendanceInfo,BoxLayout.Y_AXIS));
         scrollPane = new JScrollPane(result);
         attendanceInfo.add(scrollPane);
 
@@ -157,8 +186,8 @@ public class Demo {
     }
 
     static void initData(){
-        students = new ArrayList<>();
-        seminars = new ArrayList<>();
+/*        students = new ArrayList<>();
+        seminars = new ArrayList<>();*/
 
         //init program coordinator and program
         java19 = new Program("JAVA19");
@@ -179,7 +208,7 @@ public class Demo {
     }
 
     static void initSeminars(){
-        seminars = new ArrayList<>();
+        //seminars = new ArrayList<>();
         objectOrientedProgramming = new Seminar("Object Oriented Programming",java19);
         objectAnalyseDesign = new Seminar("Object Analyse Design",java19);
     }
@@ -199,11 +228,11 @@ public class Demo {
     }
 
     static void initStudents(){
-        students = new ArrayList<>();
-        stu4 = new Student("Stu1");
-        stu1 = new Student("Stu2");
-        stu2 = new Student("Stu3");
-        stu3 = new Student("Stu4");
+        //students = new ArrayList<>();
+        stu1 = new Student("Stu1");
+        stu2 = new Student("Stu2");
+        stu3 = new Student("Stu3");
+        stu4 = new Student("Stu4");
     }
 
     static void initTeachers(){
