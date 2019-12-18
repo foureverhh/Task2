@@ -86,13 +86,4 @@ public class Seminar {
     public void setProgram(Program program) {
         this.program = program;
     }
-
-    @Override
-    public String toString() {
-        return "Seminar info: " +
-                "title: " + name + " , " +
-                "teacher: " + teacher +
-                " , attendances: " + attendances +
-                " , program: " + program + " .";
-    }
 }

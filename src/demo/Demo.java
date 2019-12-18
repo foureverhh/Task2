@@ -92,8 +92,7 @@ public class Demo {
                 if(!students.contains(stu1))
                     students.add(stu1);
             }else {
-                if(students.contains(stu1))
-                    students.remove(stu1);
+                students.remove(stu1);
             }
         });
         student2.addItemListener(su2->{
@@ -101,7 +100,7 @@ public class Demo {
                 if(!students.contains(stu2))
                     students.add(stu2);
             }else {
-                if(students.contains(stu2))
+                //if(students.contains(stu2))
                     students.remove(stu2);
             }
         });
@@ -110,7 +109,7 @@ public class Demo {
                 if(!students.contains(stu3))
                     students.add(stu3);
             }else {
-                if(students.contains(stu3))
+                //if(students.contains(stu3))
                     students.remove(stu3);
             }
         });
@@ -119,7 +118,7 @@ public class Demo {
                 if(!students.contains(stu4))
                     students.add(stu4);
             }else {
-                if(students.contains(stu4))
+                //if(students.contains(stu4))
                     students.remove(stu4);
             }
         });
@@ -132,12 +131,13 @@ public class Demo {
         //seminars check boxes
         seminar1 = new JCheckBox("Object Oriented Programming");
         seminar2 = new JCheckBox("Object Analyze and Design");
+
         seminar1.addItemListener(se1 ->{
             if(se1.getStateChange() == ItemEvent.SELECTED){
                 if(!seminars.contains(objectOrientedProgramming))
                     seminars.add(objectOrientedProgramming);
             }else {
-                if(seminars.contains(objectOrientedProgramming))
+                //if(seminars.contains(objectOrientedProgramming))
                     seminars.remove(objectOrientedProgramming);
             }
         });
@@ -146,8 +146,9 @@ public class Demo {
                 if(!seminars.contains(objectAnalyseDesign))
                     seminars.add(objectAnalyseDesign);
             }else {
-                if(seminars.contains(objectAnalyseDesign))
+                //if(seminars.contains(objectAnalyseDesign))
                     seminars.remove(objectAnalyseDesign);
+
             }
         });
         seminarInfo.add(seminar1);
@@ -155,21 +156,44 @@ public class Demo {
 
         //button
         check_result = new JButton("Check Attendance Result");
+        buttonPanel.add(check_result);
         check_result.addActionListener(l->{
             attendances = new ArrayList<>();
+            for(Student student:students){
+                //Empty all student's attended seminar
+                student.getSeminarsAttended().clear();
+            }
+            for(Seminar seminar : seminars){
+                //Empty seminar's attendance
+                seminar.getAttendances().clear();
+            }
             for(Student student : students){
                 result.append("\n");
                 for(Seminar seminar : seminars){
                     Attendance attendance = new Attendance();
                     attendance.registerAttendance(seminar,student);
-                    result.append(student.getName() + " attended seminar " + seminar.getName() + " ,with subjects: " + seminar.getSubjects().get(0).viewSubjectInfo() +
+                    result.append(student.getName() + " attends seminar " + seminar.getName() + " ,with subjects: " + seminar.getSubjects().get(0).viewSubjectInfo() +
                             " and " + seminar.getSubjects().get(1).viewSubjectInfo() + " ,taught by teacher " + seminar.getTeacher() + "\n");
-                    attendances.add(attendance);
+                    if(!attendances.contains(attendance))
+                        attendances.add(attendance);
                 }
+            }
+            result.append("\n");
+            for(Seminar seminar :seminars){
+                result.append("\nTo Seminar: " + seminar.getName() + " , Attendances are: \n");
+                result.append("There are total " + seminar.getTotalAttendance() + " attendances to seminar "+ seminar.getName() +"\n");
+            }
+            result.append("\n");
+            for(Student student : students){
+                result.append("\nTo Student, he or she " + student.getName() + " attends" + student.getSeminarsAttended().size() + " seminars: ");
+                for(Seminar seminar : student.getSeminarsAttended()){
+                    result.append(seminar.getName()+ " ");
+                }
+                result.append("\n");
             }
             result.append("\n" + "***********************************" + "\n");
         });
-        buttonPanel.add(check_result);
+
 
         //attendance info
         result = new JTextArea(35,60);
@@ -237,7 +261,6 @@ public class Demo {
 
     static void initTeachers(){
         teachers = new ArrayList<>();
-
         robert = new Teacher("Robert");
         sigrun = new Teacher("Sigrun");
         robert.setCurrentSeminar(objectAnalyseDesign);
@@ -247,5 +270,4 @@ public class Demo {
         teachers.add(robert);
         teachers.add(sigrun);
     }
-
 }

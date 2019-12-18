@@ -11,9 +11,11 @@ public class Attendance {
     public void registerAttendance(Seminar seminar, Student student){
         attendanceLevel = true;
         this.seminar = seminar;
-        this.seminar.getAttendances().add(this);
+        if(!seminar.getAttendances().contains(this))
+            this.seminar.getAttendances().add(this);
         this.student = student;
-        this.student.attendSeminar(this);
+        if(!student.getSeminarsAttended().contains(this.getSeminar()))
+            this.student.attendSeminar(this);
     }
 
     public void removeAttendance(Seminar seminar, Student student){
@@ -28,12 +30,5 @@ public class Attendance {
 
     public Student getStudent() {
         return student;
-    }
-
-    @Override
-    public String toString() {
-        return "Attendance{" +
-                "student=" + student +
-                '}';
     }
 }
